@@ -1,20 +1,21 @@
 import csv
 
-st = set()
+mp = {}
 
 with open('../Data/picked_landmarks.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
 
     for row in spamreader:
-        st.add(row[0])
-
-count = 0
+        mp.update({row[0]: 0})
 
 with open('../Data/train.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
 
     for row in spamreader:
-        if row[2] in st:
-            count += 1
+        if row[2] in mp:
+            mp[row[2]] += 1
 
-print(count)
+print(len(mp))
+
+for m in mp:
+    print(m, mp[m])
