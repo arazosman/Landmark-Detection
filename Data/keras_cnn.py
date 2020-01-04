@@ -15,12 +15,9 @@ import datasets
 def getModel(input_shape, C):
     X_input = Input(input_shape)
 
-    X = ZeroPadding2D(padding=(3, 3))(X_input)
-
-    X = Conv2D(filters=16, kernel_size=(3, 3), strides=(1, 1))(X)
+    X = Conv2D(filters=16, kernel_size=(3, 3), strides=(1, 1))(X_input)
     X = BatchNormalization(axis=3)(X)
     X = Activation("relu")(X)
-    #X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(X)
 
     X = Conv2D(filters=32, kernel_size=(3, 3), strides=(1, 1))(X)
     X = BatchNormalization(axis=3)(X)
@@ -30,7 +27,6 @@ def getModel(input_shape, C):
     X = Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1))(X)
     X = BatchNormalization(axis=3)(X)
     X = Activation("relu")(X)
-    #X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(X)
 
     X = Conv2D(filters=128, kernel_size=(3, 3), strides=(1, 1))(X)
     X = BatchNormalization(axis=3)(X)
@@ -53,11 +49,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 ###################################
 
-classes = datasets.getClasses("world")
+classes = datasets.getClasses("sub-datasets/bridges")
 C = len(classes)
 print(C)
 
-X_train, Y_train, X_test, Y_test = datasets.getDataset("world", classes, pixel=32, rate=.85)
+X_train, Y_train, X_test, Y_test = datasets.getDataset("sub-datasets/bridges", classes, pixel=32, rate=.85)
 
 X_train = X_train / 255 # normalizing
 Y_train = np.eye(C)[Y_train.reshape(-1)] # one-to-hot matrix
@@ -68,7 +64,7 @@ print("Dataset dimensions:", X_train.shape, Y_train.shape, X_test.shape, Y_test.
 
 model = getModel(X_train.shape[1:], C)
 model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
-history = model.fit(x=X_train, y=Y_train, validation_split=0.15, epochs=1, batch_size=32)
+history = model.fit(x=X_train, y=Y_train, validation_split=.15, epochs=20, batch_size=32)
 
 preds = model.evaluate(x=X_test, y=Y_test)
 
@@ -93,3 +89,4 @@ print(classes)
 y_pred = model.predict(X_test)
 matrix = confusion_matrix(Y_test.argmax(axis=1), y_pred.argmax(axis=1))
 np.savetxt("confusion_matrix.txt", matrix)
+
