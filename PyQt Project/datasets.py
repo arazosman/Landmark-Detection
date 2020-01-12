@@ -29,7 +29,7 @@ def getSamples(root, pixel=32):
         except:
             print(file, "could not be opened")
 
-    return [np.asarray(X, dtype=np.float32)/255, paths]
+    return [np.asarray(X, dtype=np.float32) / 255, paths]
 
 ###################################
 
@@ -50,7 +50,7 @@ def getImage(path, pixel=32):
     except:
         print(path, "could not be opened")
 
-    return np.asarray(X, dtype=np.float32)/255
+    return np.asarray(X, dtype=np.float32) / 255
 
 ###################################
 
@@ -58,10 +58,6 @@ def neuralNetwork(model, sample):
     logging.getLogger('tensorflow').disabled = True
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     np.set_printoptions(suppress=True) # ignoring scientific numeric notation
-    #X_samples = getSamples("samples", pixel=32)
-    #model = load_model("model.h5")
-    #index = random.randint(0, X_samples.shape[0])
-    #Y_pred = model.predict(X_samples[index:index+1])
     Y_pred = model.predict(sample)
     best_args = np.argsort(-Y_pred).T[:5]
     rates = -np.sort(-Y_pred).T[:5]

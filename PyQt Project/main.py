@@ -23,6 +23,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(550, 700)
         MainWindow.setMinimumSize(QtCore.QSize(550, 700))
         MainWindow.setMaximumSize(QtCore.QSize(550, 700))
+        MainWindow.setWindowIcon(QtGui.QIcon('images/icon.png'))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
@@ -461,6 +462,7 @@ class Ui_MainWindow(object):
 
     def randomImage(self):
         self.index = datasets.random.randint(0, self.X_samples.shape[0]-1)
+        print(self.index, " : ", self.X_paths[self.index])
         self.push_image.setStyleSheet("border-image: url('" + self.X_paths[self.index] + "')")
         self.uploadedPath = ""
 
