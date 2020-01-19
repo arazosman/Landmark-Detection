@@ -1,5 +1,5 @@
 # Landmark Recognition System
-A landmark recognition system that detects famous landmarks on images. The system uses convolutional neural networks. Contributions made by Osman Araz and Muhammet Çeneli, respect to their 2nd graduation project of Yıdız Technical University - Computer Engineering department.
+A landmark recognition system that detects famous landmarks on images. The system uses convolutional neural networks. Contributions made by Osman Araz and Muhammet Çeneli, respect to their 2<sup>nd</sup> graduation project of Yıdız Technical University - Computer Engineering department.
 
 ## Model Training
 The dataset collected and trained with a CNN model.
