@@ -23,7 +23,7 @@ def shuffleDataset(X, Y, rate):
     #np.random.seed(0)
     perm = np.random.permutation(m)
     print(X.shape)
-    print(X[100][5][4])
+    #print(X[100][5][4])
 
     X_shuffled = X[perm, :, :, :]
     Y_shuffled = Y[:, perm]
